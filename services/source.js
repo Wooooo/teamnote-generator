@@ -10,8 +10,13 @@ let globPromise = function(rootPath) {
     return Promise.resolve({
         then: function (resolve, reject) {
             glob(path.join(rootPath, '*'), (err, files) => {
-                if (err) return reject(err);
-                resolve(files);
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(files);
+                }
+
             });
         }
     });
@@ -28,6 +33,17 @@ let statPromise = function(rootPath) {
     });
 };
 
+let readPromise = function(rootPath) {
+    return Promise.resolve({
+        then: function(resolve, reject) {
+            fs.readFile(rootPath, 'utf8', (err, data) => {
+                if(err) return reject(err);
+                resolve(data);
+            })
+        }
+    });
+};
+
 let traverse = co(function*(rootPath, title) {
     let items = (yield globPromise(rootPath)) || [];
 
@@ -35,16 +51,19 @@ let traverse = co(function*(rootPath, title) {
         let item = items[i];
 
         let extname = path.extname(item) && path.extname(item).substr(1);
+        let basename = path.basename(item);
         let stat    = yield statPromise(item);
 
         if( stat.isFile() && (settings.extensions||[]).indexOf(extname) !== -1 ) {
-            // teamnote에 등록
-            console.log(item, title);
+            let content = yield readPromise(item);
+
+            sources.push({
+                title: title+'/'+basename,
+                content
+            });
         }
 
         else if( stat.isDirectory() ) {
-            let basename = path.basename(item);
-
             yield traverse(item, title+'/'+basename);
         }
     }

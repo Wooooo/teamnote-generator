@@ -3,10 +3,16 @@
 global.Promise      = require('bluebird');
 global.co           = Promise.coroutine;
 
-var app = require('../app');
+const sourceServices = require('../services/source');
 
-app.set('port', process.env.PORT || 3000);
+co(function*() {
+    yield sourceServices.init();
+})().then(function() {
+    var app = require('../app');
 
-var server = app.listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + server.address().port);
+    app.set('port', process.env.PORT || 3000);
+
+    var server = app.listen(app.get('port'), function () {
+        console.log('Express server listening on port ' + server.address().port);
+    });
 });

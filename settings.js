@@ -2,6 +2,6 @@ const
     path        = require('path');
 
 module.exports = {
-    sourcesPath: path.join(__dirname, './teamnote_source'),
+    sourcesPath: path.join(__dirname, './teamnote-source'),
     extensions: ['cpp']
 };
