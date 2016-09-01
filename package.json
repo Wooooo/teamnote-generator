@@ -1,0 +1,25 @@
+{
+  "name": "teamnote-generator",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.5",
+    "body-parser": "^1.13.3",
+    "cookie-parser": "^1.3.3",
+    "express": "^4.13.3",
+    "express-handlebars": "^3.0.0",
+    "glob": "^7.0.6",
+    "morgan": "^1.6.1",
+    "serve-favicon": "^2.3.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-nodemon": "^2.0.2",
+    "gulp-livereload": "^3.8.0",
+    "gulp-plumber": "^1.0.0"
+  }
+}
