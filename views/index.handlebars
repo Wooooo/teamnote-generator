@@ -1,11 +1,33 @@
 <div class="container">
     {{#sources}}
-        <h3>{{title}}</h3>
+        <div>
+        <span>{{title}}</span>
         <pre>
-            <code class="cpp">
-{{content}}
-            </code>
+            <code class="cpp">{{content}}</code>
         </pre>
+        </div>
     {{/sources}}
 
 </div>
+
+<style>
+    .hljs-line-numbers {
+        text-align: right;
+        border-right: 1px solid #ccc;
+        color: #999;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media print {
+        h2, h3, span, pre {
+            page-break-after: avoid;
+            page-break-before: avoid;
+            page-break-inside: avoid;
+        }
+    }
+</style>
