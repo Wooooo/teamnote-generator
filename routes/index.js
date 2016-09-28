@@ -1,10 +1,15 @@
-var express = require('express');
+const
+    express = require('express'),
+    sourceServices = require('../services/source');
+
 var router = express.Router();
 
 /* GET home page. */
 
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+    let sources = sourceServices.get();
+
+    res.render('index', { title: 'Express', sources });
 });
 
 module.exports = router;

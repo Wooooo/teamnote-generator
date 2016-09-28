@@ -3,16 +3,25 @@
 global.Promise      = require('bluebird');
 global.co           = Promise.coroutine;
 
-const sourceServices = require('../services/source');
+const
+    path            = require('path'),
+    sourceServices  = require('../services/source');
 
 co(function*() {
     yield sourceServices.init();
+
+    if(process.env.NODE_ENV === 'development') {
+        let livereload = require('livereload');
+        let server = livereload.createServer();
+        server.watch(path.join(__dirname + "../views"));
+    }
+
 })().then(function() {
-    var app = require('../app');
+    let app = require('../app');
 
     app.set('port', process.env.PORT || 3000);
 
-    var server = app.listen(app.get('port'), function () {
+    let server = app.listen(app.get('port'), function () {
         console.log('Express server listening on port ' + server.address().port);
     });
 });

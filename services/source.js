@@ -82,5 +82,8 @@ let renew = co(function*() {
 
 module.exports = {
     init,
-    renew
+    renew,
+    get: function() {
+        return sources;
+    }
 };
